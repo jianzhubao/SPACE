@@ -48,12 +48,12 @@
       <span><sup>2</sup>University of California, Los Angeles</span>
     </p>
     <div class="resource-links" aria-label="Project resources">
-      <!-- Add the confirmed href values and remove aria-disabled when the public URLs are available. -->
+      <!-- Add the confirmed arXiv href and remove aria-disabled when the paper URL is available. -->
       <a class="resource-button" role="link" aria-disabled="true">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5"/></svg>
         <span>arXiv</span>
       </a>
-      <a class="resource-button" role="link" aria-disabled="true">
+      <a class="resource-button" href="https://github.com/jianzhubao/SPACE">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 20"/></svg>
         <span>Code</span>
       </a>
@@ -82,7 +82,7 @@
     <section class="section" id="method" aria-labelledby="method-heading">
       <div class="prose">
         <h2 id="method-heading">How SPACE works</h2>
-        <p>Let <var>W</var><sub>0</sub>, <var>W</var><sub>SFT</sub>, and <var>W</var><sub>cal</sub> denote the pre-SFT, post-SFT, and calibrated weight matrices, respectively. SPACE uses the pre-SFT geometry to refine the completed SFT update in three steps:</p>
+        <p>Let <var>W</var><sub>0</sub>, <var>W</var><sub>SFT</sub>, and <var>W</var><sub>cal</sub> denote the pre-SFT, post-SFT, and calibrated weight matrices, respectively. Define the SFT update as <var>ΔW</var> = <var>W</var><sub>SFT</sub> − <var>W</var><sub>0</sub>. SPACE uses the pre-SFT geometry to refine the completed SFT update in three steps:</p>
         <ol class="method-steps">
           <li><strong>Decompose the pre-SFT weights.</strong> Perform singular value decomposition (SVD) on <var>W</var><sub>0</sub>.</li>
           <li><strong>Select the principal subspace.</strong> Choose the smallest rank <var>k</var> capturing at least a fraction <var>ρ</var> of the squared singular-value energy, and the top <var>k</var> right singular vectors of <var>W</var><sub>0</sub> form <var>V</var><sub>k</sub>.</li>
@@ -90,12 +90,12 @@
         </ol>
 
         <div class="equation-block">
-          <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="W cal equals W SFT minus the product of W SFT minus W zero, V k, and V k transpose">
+          <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="W cal equals W SFT minus Delta W times V k times V k transpose">
             <msub><mi>W</mi><mtext>cal</mtext></msub>
             <mo>=</mo>
             <msub><mi>W</mi><mtext>SFT</mtext></msub>
             <mo>−</mo>
-            <mo>(</mo><msub><mi>W</mi><mtext>SFT</mtext></msub><mo>−</mo><msub><mi>W</mi><mn>0</mn></msub><mo>)</mo>
+            <mi>Δ</mi><mi>W</mi>
             <msub><mi>V</mi><mi>k</mi></msub><msubsup><mi>V</mi><mi>k</mi><mi mathvariant="normal">T</mi></msubsup>
           </math>
         </div>

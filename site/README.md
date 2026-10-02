@@ -40,9 +40,10 @@ replace the images when updating the tables. Each has a brief summary in `index.
 
 Rank selection uses squared singular-value energy, matching the package.
 The author list and affiliations in `index.html` match the provided manuscript
-information. Add the confirmed `href` values to the arXiv /
-Code anchors and remove their `aria-disabled` attributes when the public URLs
-are available. Add a BibTeX section once the citation is available.
+information. The Code button links to `https://github.com/jianzhubao/SPACE`.
+Add the confirmed `href` to the arXiv anchor and remove its `aria-disabled`
+attribute when the paper URL is available. Add a BibTeX section once the citation
+is available.
 The canonical URL and Open Graph metadata use the project page URL above.
 
 ## Publish with GitHub Pages
