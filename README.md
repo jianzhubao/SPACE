@@ -164,12 +164,6 @@ Evaluation results are saved to
 `experiments/checkpoints/qwen3-14b-base/{sft,space}/eval_results/global_step_80/`,
 with a subdirectory for each benchmark.
 
-Each `eval.sh` runs its uncommented benchmark commands. Enable the desired
-benchmarks in that script before evaluation. `calibrate.sh [SFT_CHECKPOINT]
-[SPACE_OUTPUT]` accepts an existing checkpoint and an optional output directory;
-for checkpoints named `global_step_N`, the default SPACE output uses the same
-step N. `eval.sh CHECKPOINT [OUTPUT_DIR]` accepts an optional evaluation directory.
-
 ## 📁 Repository Structure
 
 ```text
@@ -194,12 +188,6 @@ SPACE/
 ├── pyproject.toml
 └── uv.lock
 ```
-
-See [site/README.md](site/README.md) to preview or publish the project page.
-
-The method package and experiment project use separate environments. Experiments
-install `space_calibration` from the repository root, sharing the same method
-implementation as the public API.
 
 ## 🙏 Acknowledgments
 
