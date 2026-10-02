@@ -217,6 +217,8 @@ We also thank the authors of [DFT](https://github.com/yongliang-wu/DFT),
 [RPSFT](https://github.com/jinhangzhan/RPSFT) for sharing their code and experimental
 protocols, which provided valuable references for our work.
 
+## 📝 Citation
+
 ## 📄 License
 
 SPACE's own code is released under the [Apache License 2.0](LICENSE).
