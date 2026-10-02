@@ -90,13 +90,17 @@
         </ol>
 
         <div class="equation-block">
-          <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="W cal equals W SFT minus Delta W times V k times V k transpose">
+          <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="W cal equals W zero plus Delta W times the quantity I minus V k times V k transpose">
             <msub><mi>W</mi><mtext>cal</mtext></msub>
             <mo>=</mo>
-            <msub><mi>W</mi><mtext>SFT</mtext></msub>
-            <mo>−</mo>
+            <msub><mi>W</mi><mn>0</mn></msub>
+            <mo>+</mo>
             <mi>Δ</mi><mi>W</mi>
-            <msub><mi>V</mi><mi>k</mi></msub><msubsup><mi>V</mi><mi>k</mi><mi mathvariant="normal">T</mi></msubsup>
+            <mrow>
+              <mo>(</mo><mi>I</mi><mo>−</mo>
+              <msub><mi>V</mi><mi>k</mi></msub><msubsup><mi>V</mi><mi>k</mi><mi mathvariant="normal">T</mi></msubsup>
+              <mo>)</mo>
+            </mrow>
           </math>
         </div>
         <p class="method-note">We use <strong>ρ = 0.5</strong> by default and apply calibration to all two-dimensional weight matrices.</p>
