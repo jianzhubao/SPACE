@@ -1,0 +1,22 @@
+# Share the full task's prompts, generation settings, and scoring.
+# Run from the repository root to resolve the local data files.
+include: halueval.yaml
+group: halueval_3k
+dataset_path: parquet
+dataset_name: null
+task:
+  - task: halueval_qa
+    dataset_kwargs:
+      data_files:
+        data: data/halueval/3k/qa_samples.parquet
+  - task: halueval_dialogue
+    dataset_kwargs:
+      data_files:
+        data: data/halueval/3k/dialogue_samples.parquet
+  - task: halueval_summarization
+    dataset_kwargs:
+      data_files:
+        data: data/halueval/3k/summarization_samples.parquet
+metadata:
+  version: 1.1
+  subset: local-1000-per-subset-seed42

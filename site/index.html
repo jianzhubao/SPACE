@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SPACE uses pre-SFT weight geometry to refine fine-tuned language models. Data-free, training-free calibration using only the pre- and post-SFT checkpoints.">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SPACE: Geometric Calibration of Supervised Fine-Tuning">
+  <meta property="og:description" content="Improve an SFT checkpoint using the geometry of its pre-SFT weights.">
+  <meta property="og:url" content="https://jianzhubao.github.io/SPACE/">
+  <meta property="og:image" content="https://jianzhubao.github.io/SPACE/static/images/space-overview.png">
+  <title>SPACE: Geometric Calibration of Supervised Fine-Tuning</title>
+  <link rel="canonical" href="https://jianzhubao.github.io/SPACE/">
+  <link rel="icon" href="static/images/favicon.svg?v=20261002-ruler" type="image/svg+xml">
+  <link rel="stylesheet" href="static/css/style.css?v=20261002-9">
+  <script src="static/js/results-tabs.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="navigation" aria-label="Page sections">
+    <a class="wordmark" href="#top">SPACE</a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <h1><span>SPACE</span>: Geometric Calibration<br class="title-break"> of Supervised Fine-Tuning</h1>
+    <div class="authors" aria-label="Authors">
+      <p class="author-row">
+        <span class="author">Jianzhu Bao<sup>1</sup></span>
+        <span class="author">Jia-Chen Gu<sup>2</sup></span>
+        <span class="author">Qingyuan Liu<sup>1</sup></span>
+        <span class="author">Haozhen Zhang<sup>1</sup></span>
+      </p>
+      <p class="author-row">
+        <span class="author">Kai-Wei Chang<sup>2</sup></span>
+        <span class="author">Nanyun Peng<sup>2</sup></span>
+        <span class="author">Wenya Wang<sup>1</sup></span>
+      </p>
+    </div>
+    <p class="affiliations">
+      <span><sup>1</sup>Nanyang Technological University</span>
+      <span><sup>2</sup>University of California, Los Angeles</span>
+    </p>
+    <div class="resource-links" aria-label="Project resources">
+      <!-- Add the confirmed href values and remove aria-disabled when the public URLs are available. -->
+      <a class="resource-button" role="link" aria-disabled="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7zM14 3v5h4M10 12h5M10 16h5"/></svg>
+        <span>arXiv</span>
+      </a>
+      <a class="resource-button" role="link" aria-disabled="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 20"/></svg>
+        <span>Code</span>
+      </a>
+    </div>
+
+  </header>
+
+  <main id="main">
+    <figure class="teaser wide">
+      <a href="static/images/space-overview.png" aria-label="View the SPACE overview figure at full resolution">
+        <img src="static/images/space-overview.png" width="2600" height="1005" fetchpriority="high"
+          alt="SPACE restores pre-SFT transformations in the principal subspace and preserves SFT updates in its orthogonal complement. Radar plots compare SFT and SPACE on Qwen2.5-7B and Qwen3-14B-Base; average ID and OOD gains are reported in the results table below.">
+      </a>
+      <figcaption><strong>Geometric calibration after SFT. SPACE selectively restores pre-SFT transformations, improving both in-domain and out-of-domain performance on average.</strong></figcaption>
+    </figure>
+
+    <section class="section band" id="overview" aria-labelledby="overview-heading">
+      <div class="prose">
+        <h2 id="overview-heading">Overview</h2>
+        <p>Supervised fine-tuning (SFT) adapts LLMs to target tasks but can compromise their broader capabilities. Recent studies investigate the weight geometry of LLMs through spectral structure, which characterizes how the weights transform different input directions. Within this view, SFT induces dense updates that perturb the spectral geometry of the pre-SFT weights along principal directions. These directions span a principal subspace that is considered to carry much of the model's prior or transferable knowledge.</p>
+        <p>This raises a simple question: can an SFT checkpoint be improved by removing the learned updates within these principal subspaces? More generally, the geometry of the pre-SFT weights may provide a useful reference for refining completed SFT updates. We study this perspective as <em>Geometric Calibration</em> and develop <strong>SPACE (Subspace Projection for Adapted Checkpoint Enhancement)</strong>, a lightweight post-hoc method that selectively reverts SFT update components within the principal subspace of the pre-SFT weights while preserving those in its orthogonal complement. SPACE is a data-free, training-free method that requires only the pre- and post-SFT checkpoints.</p>
+        <p>We evaluate SPACE on Qwen2.5, Qwen3, Qwen3.5, Llama-3.1, and Olmo-3 models ranging from 2B to 14B, across mathematical, coding, and medical SFT, as well as several SFT variants. Overall, SPACE mitigates out-of-domain (OOD) capability regression while further improving in-domain (ID) performance over the uncalibrated SFT checkpoints. These results highlight how the geometric relationship between SFT updates and pre-SFT weights shapes the adapted model’s capabilities and, more broadly, motivate geometry-aware parameter updates for continual model improvement.</p>
+      </div>
+    </section>
+
+    <section class="section" id="method" aria-labelledby="method-heading">
+      <div class="prose">
+        <h2 id="method-heading">How SPACE works</h2>
+        <p>Let <var>W</var><sub>0</sub>, <var>W</var><sub>SFT</sub>, and <var>W</var><sub>cal</sub> denote the pre-SFT, post-SFT, and calibrated weight matrices, respectively. SPACE uses the pre-SFT geometry to refine the completed SFT update in three steps:</p>
+        <ol class="method-steps">
+          <li><strong>Decompose the pre-SFT weights.</strong> Perform singular value decomposition (SVD) on <var>W</var><sub>0</sub>.</li>
+          <li><strong>Select the principal subspace.</strong> Choose the smallest rank <var>k</var> capturing at least a fraction <var>ρ</var> of the squared singular-value energy, and the top <var>k</var> right singular vectors of <var>W</var><sub>0</sub> form <var>V</var><sub>k</sub>.</li>
+          <li><strong>Calibrate the update.</strong> Remove the update component in this subspace while preserving the component in its orthogonal complement.</li>
+        </ol>
+
+        <div class="equation-block">
+          <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" aria-label="W cal equals W SFT minus the product of W SFT minus W zero, V k, and V k transpose">
+            <msub><mi>W</mi><mtext>cal</mtext></msub>
+            <mo>=</mo>
+            <msub><mi>W</mi><mtext>SFT</mtext></msub>
+            <mo>−</mo>
+            <mo>(</mo><msub><mi>W</mi><mtext>SFT</mtext></msub><mo>−</mo><msub><mi>W</mi><mn>0</mn></msub><mo>)</mo>
+            <msub><mi>V</mi><mi>k</mi></msub><msubsup><mi>V</mi><mi>k</mi><mi mathvariant="normal">T</mi></msubsup>
+          </math>
+        </div>
+        <p class="method-note">We use <strong>ρ = 0.5</strong> by default and apply calibration to all two-dimensional weight matrices.</p>
+      </div>
+    </section>
+
+    <section class="section band" id="results" aria-labelledby="results-heading">
+      <div class="results-gallery">
+        <h2 id="results-heading">Experimental Results</h2>
+        <div class="results-tabs" role="tablist" aria-label="Experiment results">
+          <button type="button" id="results-tab-1" role="tab" aria-controls="results-panel-1" aria-selected="true" tabindex="0">Math SFT</button>
+          <button type="button" id="results-tab-2" role="tab" aria-controls="results-panel-2" aria-selected="false" tabindex="-1">Coding &amp; Medical SFT</button>
+          <button type="button" id="results-tab-3" role="tab" aria-controls="results-panel-3" aria-selected="false" tabindex="-1">SFT Variants</button>
+          <button type="button" id="results-tab-4" role="tab" aria-controls="results-panel-4" aria-selected="false" tabindex="-1">Across Model Families</button>
+        </div>
+
+        <div id="results-panel-1" role="tabpanel" aria-labelledby="results-tab-1" tabindex="0">
+          <figure class="result-figure" id="table-1">
+            <figcaption><strong>Mathematical reasoning SFT.</strong> SPACE achieves the largest average ID and OOD improvements among the compared post-hoc methods for both Qwen2.5-7B and Qwen3-14B-Base.</figcaption>
+            <a href="static/images/table-1-math-sft.png" aria-label="View Table 1 at full resolution">
+              <img src="static/images/table-1-math-sft.png" width="2083" height="1750" loading="lazy" decoding="async"
+                alt="Table 1. ID and OOD benchmark scores for Qwen2.5-7B and Qwen3-14B-Base, comparing Base, SFT, eight post-hoc baselines, and SPACE.">
+            </a>
+          </figure>
+        </div>
+
+        <div id="results-panel-2" role="tabpanel" aria-labelledby="results-tab-2" tabindex="0" hidden>
+          <figure class="result-figure" id="table-2">
+            <figcaption><strong>Coding and medical SFT.</strong> On Qwen2.5-7B, SPACE improves average ID and OOD performance after both coding and medical SFT, with larger ID gains in the medical setting.</figcaption>
+            <a href="static/images/table-2-coding-medical-sft.png" aria-label="View Table 2 at full resolution">
+              <img src="static/images/table-2-coding-medical-sft.png" width="2083" height="1000" loading="lazy" decoding="async"
+                alt="Table 2. Coding and medical SFT results on Qwen2.5-7B, comparing Base, SFT, DG-Hard, MonoSoup, and SPACE.">
+            </a>
+          </figure>
+        </div>
+
+        <div id="results-panel-3" role="tabpanel" aria-labelledby="results-tab-3" tabindex="0" hidden>
+          <figure class="result-figure" id="table-3">
+            <figcaption><strong>Compatibility with SFT variants.</strong> SPACE improves average ID and OOD performance across DFT, ASFT, and RPSFT, complementing different SFT objectives.</figcaption>
+            <a href="static/images/table-3-sft-variants.png" aria-label="View Table 3 at full resolution">
+              <img src="static/images/table-3-sft-variants.png" width="2083" height="1099" loading="lazy" decoding="async"
+                alt="Table 3. ID and OOD results for DFT, ASFT, and RPSFT, comparing the original checkpoint with MonoSoup and SPACE.">
+            </a>
+          </figure>
+        </div>
+
+        <div id="results-panel-4" role="tabpanel" aria-labelledby="results-tab-4" tabindex="0" hidden>
+          <figure class="result-figure" id="table-4">
+            <figcaption><strong>Generalization across models.</strong> SPACE yields positive average ID and OOD gains across all four model settings, with the largest gains on Llama-3.1-8B-Instruct.</figcaption>
+            <a href="static/images/table-4-model-generalization.png" aria-label="View Table 4 at full resolution">
+              <img src="static/images/table-4-model-generalization.png" width="2083" height="984" loading="lazy" decoding="async"
+                alt="Table 4. Base, SFT, and SPACE results for Qwen3.5-2B-Base, Qwen3-8B-Base, Olmo-3-7B-Instruct-SFT, and Llama-3.1-8B-Instruct.">
+            </a>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>SPACE · Subspace Projection for Adapted Checkpoint Enhancement</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+</body>
+</html>

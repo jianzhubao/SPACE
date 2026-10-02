@@ -1,0 +1,29 @@
+task: alpaca_rm
+dataset_path: json
+dataset_kwargs:
+  data_files:
+    test: https://huggingface.co/datasets/tatsu-lab/alpaca_eval/resolve/2edc6fad8be6b14ea7230aabfd08188da6b8b814/alpaca_eval.json
+output_type: generate_until
+test_split: test
+doc_to_text: "{{instruction}}"
+# Reference outputs are not targets for reward-model scoring.
+doc_to_target: ""
+num_fewshot: 0
+repeats: 1
+generation_kwargs:
+  until:
+    - "<|im_end|>"
+  do_sample: true
+  temperature: 0.6
+  top_p: 0.95
+  max_gen_toks: 4096
+  # String-based special-token stops require the tokens to remain visible.
+  skip_special_tokens: false
+metric_list:
+  - metric: bypass
+    aggregation: bypass
+    higher_is_better: true
+metadata:
+  version: 1.1
+  protocol: space-sampling-rethink-rm
+  dataset_revision: 2edc6fad8be6b14ea7230aabfd08188da6b8b814

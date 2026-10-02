@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <title>SPACE triangular ruler</title>
+  <defs>
+    <linearGradient id="ruler" x1="20" y1="20" x2="270" y2="280" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b7dfff"/>
+      <stop offset="1" stop-color="#99cfff"/>
+    </linearGradient>
+  </defs>
+  <path d="M16 19 Q16 12 21 17 L287 283 Q289 285 285 285 H19 Q15 285 15 281 V20 Z
+           M68 126 Q64 122 64 129 V233 Q64 237 68 237 H168 Q175 237 170 232 Z"
+        fill="url(#ruler)" fill-rule="evenodd" stroke="#174c60" stroke-width="5.5" stroke-linejoin="round"/>
+  <path d="M21 22 L278 280" fill="none" stroke="#e0f2ff" stroke-width="3"/>
+  <path d="M155 167 L220 232" fill="none" stroke="#d9eeff" stroke-width="7" stroke-linecap="round"/>
+  <g fill="none" stroke="#174c60" stroke-width="3.5" stroke-linecap="round">
+    <path d="M16 41 H28 M16 57 H28 M16 73 H38 M16 88 H28 M16 104 H28
+             M16 120 H38 M16 135 H28 M16 151 H28 M16 167 H38 M16 182 H28
+             M16 198 H28 M16 214 H38 M16 229 H28 M16 245 H28"/>
+    <path d="M32 283 V260 M47 283 V271 M61 283 V271 M76 283 V263 M91 283 V271
+             M106 283 V271 M121 283 V263 M136 283 V271 M151 283 V271 M166 283 V263
+             M181 283 V271 M196 283 V271 M211 283 V263 M226 283 V271 M241 283 V271 M256 283 V270"/>
+  </g>
+</svg>

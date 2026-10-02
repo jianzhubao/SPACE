@@ -1,0 +1,29 @@
+dataset_path: pminervini/HaluEval
+dataset_kwargs:
+  revision: 12a856119f03975a94509091e8cada3e6be6ead7
+output_type: generate_until
+test_split: data
+doc_to_target: "{{hallucination}}"
+num_fewshot: 0
+repeats: 1
+generation_kwargs:
+  until:
+    - "<|im_end|>"
+  do_sample: true
+  temperature: 0.6
+  top_p: 0.95
+  max_gen_toks: 4096
+  # Keep special tokens visible so vLLM can match the string stop.
+  skip_special_tokens: false
+process_results: !function utils.process_results
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: invalid_rate
+    aggregation: mean
+    higher_is_better: false
+metadata:
+  version: 1.2
+  protocol: space-sampling-rethink-prompt-whole-word-fallback
+  score_scale: 100
