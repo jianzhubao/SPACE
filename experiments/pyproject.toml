@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "space-experiments"
+version = "0.1.0"
+requires-python = "==3.12.*"
+dependencies = [
+    "space-calibration",
+    "pandas",
+    "pyarrow>=19",
+    "datasets",
+    "nltk",
+    "sympy==1.14.0",
+    "huggingface-hub",
+    "flash-attn",
+    "immutabledict>=4.3.1",
+    "langdetect>=1.0.9",
+    "liger-kernel==0.8.0",
+    "livecodebench",
+    "lm-eval",
+    "pebble>=5.2.1",
+    "tensordict==0.10.0",
+    "timeout-decorator>=0.5.0",
+    "torch==2.11.0",
+    "torchaudio==2.11.0",
+    "torchvision==0.26.0",
+    "transformers==5.5.4",
+    "verl",
+    "vllm==0.21.0",
+    "word2number>=1.1",
+]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+link-mode = "copy"
+
+[tool.uv.sources]
+space-calibration = { path = "..", editable = true }
+torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }
+torchaudio = { index = "pytorch-cu130" }
+verl = { path = "verl", editable = true }
+flash-attn = { url = "https://github.com/adithyaxx/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3%2Bcu13torch2.11cxx11abiTRUE-cp312-cp312-linux_x86_64.whl" }
+lm-eval = { path = "lm-evaluation-harness", editable = true }
+livecodebench = { path = "livecodebench", editable = true }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/space"]

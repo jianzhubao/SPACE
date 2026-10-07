@@ -1,0 +1,91 @@
+task: gpqa_diamond_rethink_16
+dataset_path: Idavidrein/gpqa
+dataset_name: gpqa_diamond
+output_type: generate_until
+process_docs: !function utils.process_docs
+training_split: train
+validation_split: train
+test_split: null
+doc_to_text: !function utils.doc_to_text
+doc_to_target: answer
+num_fewshot: 0
+repeats: 16
+generation_kwargs:
+  until:
+    - "<|im_end|>"
+  do_sample: true
+  temperature: 0.6
+  top_p: 0.95
+  max_gen_toks: 4096
+filter_list:
+  - name: rethink-extract
+    filter:
+      - function: custom
+        filter_fn: !function utils.extract_rethink_answers
+process_results: !function utils.process_results_16
+metric_list:
+  - metric: num_total
+    aggregation: !function utils.aggregate_num_total
+    higher_is_better: false
+  - metric: accuracy_rep_1
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_2
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_3
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_4
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_5
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_6
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_7
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_8
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_9
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_10
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_11
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_12
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_13
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_14
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_15
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_rep_16
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_avg
+    aggregation: mean
+    higher_is_better: true
+  - metric: accuracy_std_err
+    aggregation: !function utils.aggregate_accuracy_std_err_16
+    higher_is_better: false
+  - metric: solved_avg
+    aggregation: !function utils.aggregate_solved_avg_16
+    higher_is_better: true
+metadata:
+  version: 1.0
+  protocol: rethink-compatible
+  subset: gpqa_diamond
+  num_repeat: 16

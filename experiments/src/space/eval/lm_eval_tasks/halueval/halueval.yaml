@@ -1,0 +1,16 @@
+group: halueval
+task:
+  - halueval_qa
+  - halueval_dialogue
+  - halueval_summarization
+aggregate_metric_list:
+  - metric: acc
+    filter_list: none
+    aggregation: mean
+    weight_by_size: true
+  - metric: invalid_rate
+    filter_list: none
+    aggregation: mean
+    weight_by_size: true
+metadata:
+  version: 1.0

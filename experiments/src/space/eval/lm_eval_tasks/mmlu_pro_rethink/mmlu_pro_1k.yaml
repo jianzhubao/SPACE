@@ -1,0 +1,12 @@
+include: mmlu_pro.yaml
+group: mmlu_pro_1k
+dataset_path: parquet
+dataset_kwargs:
+  revision: null
+  data_files:
+    test: data/mmlu_pro/1k_test.parquet
+    validation: data/mmlu_pro/validation.parquet
+metadata:
+  version: 1.1
+  protocol: rethink-compatible
+  subset: local-random-1k-seed42

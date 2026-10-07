@@ -1,0 +1,76 @@
+{
+  "numina_cot": {
+    "repo_id": "AI-MO/NuminaMath-CoT",
+    "revision": "9d8d210c9f6a36c8f3cd84045668c9b7800ef517",
+    "selection": "train[0:100000]",
+    "rows": 100000
+  },
+  "math_cot": {
+    "repo_id": "jasonrqh/Math-CoT-20k",
+    "revision": "1435fb21d4fecc8ad4966a26f22a874cf2b527f1",
+    "filename": "Math-CoT-20k.parquet",
+    "rows": 20480
+  },
+  "math_evaluation": {
+    "math_oai": {
+      "url": "https://raw.githubusercontent.com/yongliang-wu/DFT/3d46b2524a0eb851a9e1825b07e092254525137a/math_evaluation/data/math_oai/test.jsonl",
+      "sha256": "a239272930e5202bf1d5275f7fa475a56687c775a61f1354a6d3371bf9dd7a94",
+      "rows": 500
+    },
+    "aime24": {
+      "url": "https://raw.githubusercontent.com/yongliang-wu/DFT/3d46b2524a0eb851a9e1825b07e092254525137a/math_evaluation/data/aime24/test.jsonl",
+      "sha256": "af2b8bd2aa911b6333ad0df32f3ca05c7ae8ed10f1731f4372c8ae26990bf7ac",
+      "rows": 30
+    },
+    "aime25": {
+      "url": "https://raw.githubusercontent.com/yongliang-wu/DFT/3d46b2524a0eb851a9e1825b07e092254525137a/math_evaluation/data/aime25/test.jsonl",
+      "sha256": "4b1696fc6ba938dda890984ca8107da0515321ac9cb47b6617a6bff1a92c3b21",
+      "rows": 30
+    },
+    "amc23": {
+      "url": "https://raw.githubusercontent.com/yongliang-wu/DFT/3d46b2524a0eb851a9e1825b07e092254525137a/math_evaluation/data/amc23/test.jsonl",
+      "sha256": "43707e1ca784602d8479de24ee8ce36609dbebc46dd152b0b12a46611aa898a4",
+      "rows": 40
+    },
+    "minerva_math": {
+      "url": "https://raw.githubusercontent.com/yongliang-wu/DFT/3d46b2524a0eb851a9e1825b07e092254525137a/math_evaluation/data/minerva_math/test.jsonl",
+      "sha256": "0e656b430d3a0a1dab6aa853f453ba3805e28e2cabe4fc72486a897cc09d8ba2",
+      "rows": 272
+    },
+    "olympiadbench": {
+      "url": "https://raw.githubusercontent.com/yongliang-wu/DFT/3d46b2524a0eb851a9e1825b07e092254525137a/math_evaluation/data/olympiadbench/test.jsonl",
+      "sha256": "bb8c1e38a16ea9eacb77530315a674d883f267fbff79183effc53681b4fcc416",
+      "rows": 675
+    }
+  },
+  "mmlu_pro": {
+    "repo_id": "TIGER-Lab/MMLU-Pro",
+    "revision": "b189ec765aa7ed75c8acfea42df31fdae71f97be"
+  },
+  "gpqa": {
+    "repo_id": "Idavidrein/gpqa",
+    "revision": "83022cefff930aea54f654c0b282e74b9eeda5c6"
+  },
+  "halueval": {
+    "repo_id": "pminervini/HaluEval",
+    "revision": "12a856119f03975a94509091e8cada3e6be6ead7"
+  },
+  "livecodebench": {
+    "repo_id": "livecodebench/code_generation_lite",
+    "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+    "release": "v2"
+  },
+  "ifeval": {
+    "repo_id": "google/IFEval",
+    "revision": "966cd89545d6b6acfd7638bc708b98261ca58e84"
+  },
+  "alpaca_eval": {
+    "repo_id": "tatsu-lab/alpaca_eval",
+    "revision": "2edc6fad8be6b14ea7230aabfd08188da6b8b814",
+    "filename": "alpaca_eval.json"
+  },
+  "reward_model": {
+    "repo_id": "allenai/Llama-3.1-8B-Instruct-RM-RB2",
+    "revision": "6779f9a302979f025eee2cb0d3edeafb4e100a7b"
+  }
+}

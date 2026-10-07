@@ -1,0 +1,5 @@
+include: ../../../../../lm-evaluation-harness/lm_eval/tasks/ifeval/ifeval.yaml
+task: ifeval
+process_results: !function utils.process_results
+dataset_kwargs:
+  revision: 966cd89545d6b6acfd7638bc708b98261ca58e84

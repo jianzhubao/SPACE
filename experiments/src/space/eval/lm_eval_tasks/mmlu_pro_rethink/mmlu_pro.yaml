@@ -1,0 +1,47 @@
+group: mmlu_pro
+task:
+  - mmlu_pro_biology
+  - mmlu_pro_business
+  - mmlu_pro_chemistry
+  - mmlu_pro_computer_science
+  - mmlu_pro_economics
+  - mmlu_pro_engineering
+  - mmlu_pro_health
+  - mmlu_pro_history
+  - mmlu_pro_law
+  - mmlu_pro_math
+  - mmlu_pro_other
+  - mmlu_pro_philosophy
+  - mmlu_pro_physics
+  - mmlu_pro_psychology
+
+description: ""
+doc_to_text: !function utils.doc_to_text
+num_fewshot: 0
+filter_list:
+  - name: custom-extract
+    filter:
+      - function: custom
+        filter_fn: !function utils.extract_rethink_answers
+      - function: take_first
+generation_kwargs:
+  until:
+    - "<|im_end|>"
+  max_gen_toks: 4096
+  do_sample: true
+  temperature: 0.6
+  top_p: 0.95
+  top_k: -1
+  min_p: 0.0
+
+aggregate_metric_list:
+  - aggregation: mean
+    metric: exact_match
+    weight_by_size: true
+    filter_list: custom-extract
+metadata:
+  version: 1.0
+  protocol: rethink-compatible
+
+dataset_kwargs:
+  revision: b189ec765aa7ed75c8acfea42df31fdae71f97be

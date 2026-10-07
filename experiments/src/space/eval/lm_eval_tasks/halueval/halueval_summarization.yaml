@@ -1,0 +1,4 @@
+include: _default_template_yaml
+task: halueval_summarization
+dataset_name: summarization_samples
+doc_to_text: !function utils.doc_to_text_summarization
