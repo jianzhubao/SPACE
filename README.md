@@ -25,8 +25,7 @@
 <p align="center">
   <a href="https://jianzhubao.github.io/SPACE/" title="SPACE project page"><img alt="Project Page" src="https://img.shields.io/badge/Project_Page-SPACE-007EC6" height="25" /></a>
   <!-- &nbsp; -->
-  <!-- TODO: Add href="ARXIV_URL" to this anchor when the paper is available. -->
-  <a title="arXiv link coming soon"><img alt="arXiv (coming soon)" src="https://img.shields.io/badge/arXiv-Coming_soon-B31B1B?logo=arxiv" height="25" /></a>
+  <a href="https://arxiv.org/abs/2610.18634v1" title="SPACE paper on arXiv"><img alt="arXiv: 2610.18634v1" src="https://img.shields.io/badge/arXiv-2610.18634v1-B31B1B?logo=arxiv" height="25" /></a>
 </p>
 
 ## 📖 Overview
