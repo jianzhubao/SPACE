@@ -21,4 +21,4 @@ dev = ["build>=1.2", "twine>=6"]
 packages = ["src/space_calibration"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src/space_calibration", "/examples", "/README.md", "/LICENSE", "/NOTICE", "/pyproject.toml"]
+include = ["/src/space_calibration", "/examples", "/README.md", "/LICENSE", "/pyproject.toml"]

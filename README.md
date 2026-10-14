@@ -24,7 +24,6 @@
 
 <p align="center">
   <a href="https://jianzhubao.github.io/SPACE/" title="SPACE project page"><img alt="Project Page" src="https://img.shields.io/badge/Project_Page-SPACE-007EC6" height="25" /></a>
-  <!-- &nbsp; -->
   <a href="https://arxiv.org/abs/2610.18634v1" title="SPACE paper on arXiv"><img alt="arXiv: 2610.18634v1" src="https://img.shields.io/badge/arXiv-2610.18634v1-B31B1B?logo=arxiv" height="25" /></a>
 </p>
 
@@ -192,7 +191,7 @@ step N. `eval.sh CHECKPOINT [OUTPUT_DIR]` accepts an optional evaluation directo
 ```text
 SPACE/
 ├── assets/                     # Overview figure and university logos
-├── site/                       # Static project page and preview instructions
+├── site/                       # Static project page
 ├── src/space_calibration/       # Core method, checkpoint API, and CLI
 ├── examples/                   # Minimal API example
 ├── experiments/
@@ -211,8 +210,6 @@ SPACE/
 ├── pyproject.toml
 └── uv.lock
 ```
-
-See [site/README.md](site/README.md) to preview or publish the project page.
 
 The method package and experiment project use separate environments. Experiments
 install `space_calibration` from the repository root, sharing the same method
