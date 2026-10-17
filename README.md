@@ -227,7 +227,7 @@ evaluation tools and benchmarks. Our experiments also build on
 
 We also thank the authors of [DFT](https://github.com/yongliang-wu/DFT),
 [ASFT](https://github.com/zhuchichi56/ASFT),
-[ReThink](https://github.com/Nebularaid2000/rethink_sft_generalization), and
+[rethink_sft_generalization](https://github.com/Nebularaid2000/rethink_sft_generalization), and
 [RPSFT](https://github.com/jinhangzhan/RPSFT) for sharing their code and experimental
 protocols, which provided valuable references for our work.
 
