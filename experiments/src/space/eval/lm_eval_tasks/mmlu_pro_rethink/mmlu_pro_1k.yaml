@@ -9,4 +9,4 @@ dataset_kwargs:
 metadata:
   version: 1.1
   protocol: rethink-compatible
-  subset: local-random-1k-seed42
+  subset: local-uniform-by-category-1k-seed42

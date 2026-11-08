@@ -158,8 +158,9 @@ with a subdirectory for each benchmark.
 
 Full-parameter SFT on **Math-CoT-20k (20,480 examples)**, followed by SPACE
 calibration. The default training run finishes at **step 80**.
-Evaluation uses 1,000 randomly sampled MMLU-Pro test examples and 1,000 examples
-from each HaluEval subset (QA, dialogue, and summarization), sampled with seed 42.
+Evaluation uses 1,000 MMLU-Pro test examples sampled uniformly across categories
+and 1,000 random examples from each HaluEval subset (QA, dialogue, and
+summarization).
 
 ```bash
 # Prepare training and evaluation data, including the seed-42 OOD subsets.

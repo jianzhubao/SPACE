@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 from pathlib import Path
 import tempfile
 import urllib.request
@@ -85,23 +86,27 @@ def prepare_math():
 
 def prepare_subsets():
     from datasets import load_dataset
+    from space.preprocess.mmlu_pro import sample_uniform_by_category
 
     spec = SOURCES["mmlu_pro"]
     data = load_dataset(spec["repo_id"], revision=spec["revision"])
     target = ROOT / "data/mmlu_pro"
     target.mkdir(parents=True, exist_ok=True)
-    data["test"].shuffle(seed=42).select(range(1000)).to_parquet(target / "1k_test.parquet")
+    sampled = sample_uniform_by_category(data["test"].to_pandas(), total=1000, seed=42)
+    sampled.to_parquet(target / "1k_test.parquet", index=False)
     data["validation"].to_parquet(target / "validation.parquet")
 
     spec = SOURCES["halueval"]
     target = ROOT / "data/halueval/3k"
     target.mkdir(parents=True, exist_ok=True)
+    rng = random.Random(42)
     for name in ("qa_samples", "dialogue_samples", "summarization_samples"):
         full = load_dataset(
             spec["repo_id"], name, split="data", revision=spec["revision"],
         )
-        full.shuffle(seed=42).select(range(1000)).to_parquet(target / f"{name}.parquet")
-    print("Prepared MMLU-Pro 1K and HaluEval 3K subsets with seed 42")
+        indices = rng.sample(range(len(full)), 1000)
+        full.select(indices).to_parquet(target / f"{name}.parquet")
+    print("Prepared category-balanced MMLU-Pro 1K and random HaluEval 3K subsets with seed 42")
 
 
 def main(argv=None):
